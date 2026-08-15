@@ -7,19 +7,15 @@ through a custom Flask web application (not a BI tool — hand-built
 HTML/CSS/JS).
 
 ## Architecture
-
-```
 Northwind (OLTP, SQL Server)
-        │
-        ▼  T-SQL migration logic (tested, see sql/migrate_reference.sql)
-        │  — SSIS package designed to reproduce the same logic visually,
-        │    see ssis/README.md for status and intended design
+│
+▼ T-SQL migration logic (tested, see sql/migrate_reference.sql)
+│ — SSIS package designed to reproduce the same logic visually,
+│ see ssis/README.md for status and intended design
 NorthwindDW (star schema, SQL Server)
-        │
-        ├──▶ Tableau (dashboard, connected via flat CSV export)
-        └──▶ Flask web app (custom UI, this repo)
-```
-
+│
+├──▶ Tableau (dashboard, connected via flat CSV export)
+└──▶ Flask web app (custom UI, this repo)
 **Note on SSIS**: the visual SSIS package (`.dtsx`) could not be built
 in this environment due to a Visual Studio 2026 / SSIS extension
 compatibility issue (documented in `ssis/README.md`, including the
@@ -27,6 +23,7 @@ intended package design). The migration logic itself is implemented
 and tested end-to-end in `sql/migrate_reference.sql`.
 
 ## Data Model (Star Schema)
+
 - **fact_orders** — one row per order line (quantity, price, discount, computed revenue)
 - **dim_customer**, **dim_employee**, **dim_product**, **dim_date** — standard dimensions
 
@@ -34,31 +31,34 @@ Modeled and documented as an ER diagram in Oracle SQL Data Modeler
 (see `docs/er_diagram.png`).
 
 ## Project Structure
-```
 ├── sql/
-│   ├── dw_schema.sql          # Target star-schema DDL (T-SQL)
-│   └── migrate_reference.sql  # Reference migration logic (mirrors the SSIS package)
-├── ssis/                      # SSIS package (.dtsx) + documentation
+│ ├── instnwnd.sql # Northwind source database script (Microsoft)
+│ ├── dw_schema.sql # Target star-schema DDL (T-SQL)
+│ ├── dw_schema_for_datamodeler.sql # Simplified DDL for Oracle Data Modeler import
+│ ├── migrate_reference.sql # Tested migration logic (mirrors intended SSIS package)
+│ └── export_flat_for_tableau.sql # Flat export query for Tableau
+├── ssis/
+│ └── README.md # SSIS status + intended package design
 ├── docs/
-│   └── er_diagram.png         # Oracle Data Modeler export
+│ ├── er_diagram.png # Oracle Data Modeler export
+│ └── screenshots/ # Flask + Tableau screenshots
 ├── webapp/
-│   ├── db.py                  # DB connection layer (SQL Server / SQLite)
-│   ├── queries.py              # KPI query functions
-│   ├── templates/              # Jinja2 HTML templates
-│   └── static/css/style.css    # Hand-written design system
-├── app.py                      # Flask entry point
+│ ├── db.py # DB connection layer (SQL Server / SQLite)
+│ ├── queries.py # KPI query functions
+│ ├── templates/ # Jinja2 HTML templates
+│ └── static/css/style.css # Hand-written design system
+├── app.py # Flask entry point
 └── requirements.txt
-```
+
 
 ## Setup & Run
 
 ### 1. Set up the database (SQL Server)
 ```sql
 -- Run in SSMS:
--- 1. Restore/create the Northwind source database (sql/instnwnd.sql)
+-- 1. Create the Northwind source database (sql/instnwnd.sql)
 -- 2. Run sql/dw_schema.sql to create NorthwindDW
--- 3. Run the SSIS package (ssis/) to migrate Northwind -> NorthwindDW
---    (or run sql/migrate_reference.sql directly as a T-SQL fallback)
+-- 3. Run sql/migrate_reference.sql to populate it (tested T-SQL migration logic)
 ```
 
 ### 2. Run the Flask app
@@ -69,7 +69,6 @@ pip install -r requirements.txt
 python app.py
 
 # Or, to develop/test the web app without SQL Server installed:
-# (uses a small local SQLite database with sample data)
 USE_SQLITE=true python app.py
 ```
 
@@ -88,3 +87,4 @@ The web app's visual identity ("trade ledger / shipping manifest") is a
 deliberate choice reflecting Northwind's business (import/export of
 specialty foods): navy ink + brass accents, slab-serif headers, and
 monospace figures for tabular data — evoking a 19th-century trading
+house ledger rather than a generic admin dashboard template.

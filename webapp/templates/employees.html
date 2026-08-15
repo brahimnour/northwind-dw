@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Agents — NorthwindDW{% endblock %}
+
+{% block content %}
+<section class="hero-strip small">
+    <h1>Trading Agents</h1>
+    <p class="lede">The people behind every manifest — ranked by revenue closed.</p>
+</section>
+
+<section class="panel wide">
+    <table class="ledger-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Agent</th>
+                <th class="num">Orders Handled</th>
+                <th class="num">Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in employees %}
+            <tr>
+                <td class="rank">{{ loop.index }}</td>
+                <td>{{ e.full_name }}</td>
+                <td class="num">{{ e.orders_handled }}</td>
+                <td class="num">${{ "{:,.0f}".format(e.revenue) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

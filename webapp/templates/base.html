@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NorthwindDW{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <span class="stamp">NDW &middot; EST. 1996</span>
+                <span class="brand-name">NorthwindDW</span>
+            </div>
+            <nav class="mainnav">
+                <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.path == '/' else '' }}">Manifest</a>
+                <a href="{{ url_for('products') }}" class="{{ 'active' if request.path == '/products' else '' }}">Cargo Ledger</a>
+                <a href="{{ url_for('employees') }}" class="{{ 'active' if request.path == '/employees' else '' }}">Agents</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <span>Data warehouse migrated from Northwind OLTP &middot; SQL Server &middot; SSIS</span>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

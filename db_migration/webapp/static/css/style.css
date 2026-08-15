@@ -1,0 +1,245 @@
+:root {
+    --ink: #14213D;
+    --ink-soft: #223259;
+    --paper: #F5F3ED;
+    --paper-raised: #FBFAF6;
+    --brass: #B8863B;
+    --brass-soft: #E4CE9E;
+    --slate: #5C6B7A;
+    --forest: #2F5233;
+    --rust: #A6402F;
+    --rule: #E7E1D3;
+
+    --display: 'Zilla Slab', serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+/* ---------- Header ---------- */
+.topbar {
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom: 3px solid var(--brass);
+}
+
+.topbar-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.brand {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+}
+
+.stamp {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--brass-soft);
+    border: 1px solid var(--brass-soft);
+    border-radius: 999px;
+    padding: 3px 10px;
+}
+
+.brand-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.01em;
+}
+
+.mainnav {
+    display: flex;
+    gap: 28px;
+}
+
+.mainnav a {
+    text-decoration: none;
+    font-size: 0.92rem;
+    color: #C7D0E0;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.mainnav a:hover,
+.mainnav a.active {
+    color: var(--paper);
+    border-bottom-color: var(--brass);
+}
+
+/* ---------- Layout ---------- */
+.page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+}
+
+.hero-strip {
+    padding-bottom: 28px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+}
+
+.hero-strip.small { padding-bottom: 18px; margin-bottom: 24px; }
+
+.hero-strip h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 2.6rem;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+}
+
+.hero-strip.small h1 { font-size: 2rem; }
+
+.lede {
+    font-size: 1.05rem;
+    color: var(--slate);
+    max-width: 60ch;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ---------- KPI cards ---------- */
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.kpi-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--brass);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.kpi-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--slate);
+}
+
+.kpi-value {
+    font-family: var(--mono);
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+/* ---------- Panels & tables ---------- */
+.ledger-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.panel {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    padding: 22px;
+}
+
+.panel.wide { grid-column: 1 / -1; }
+
+.panel h2 {
+    font-family: var(--display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 16px;
+}
+
+.eyebrow {
+    font-family: var(--body);
+    font-weight: 400;
+    color: var(--slate);
+    font-size: 0.85rem;
+}
+
+.ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.ledger-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--slate);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 10px 10px 0;
+}
+
+.ledger-table td {
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+.ledger-table tr:last-child td { border-bottom: none; }
+
+.ledger-table .num {
+    text-align: right;
+    font-family: var(--mono);
+}
+
+.ledger-table th.num { text-align: right; }
+
+.rank {
+    font-family: var(--mono);
+    color: var(--brass);
+    font-weight: 500;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.76rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--slate);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.78rem;
+    color: var(--slate);
+    border-top: 1px solid var(--rule);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .ledger-grid { grid-template-columns: 1fr; }
+    .hero-strip h1 { font-size: 2rem; }
+}
